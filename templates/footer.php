@@ -4,7 +4,7 @@
     </div>
 </footer>
 <script src="./public/jquery-3.4.1.min.js"></script>
-<script src="./public/js/bootstrap.min.js"></script>
+<script src="./public/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
 <script src="./public/main.js"></script>
 

@@ -22,6 +22,7 @@ if (isset($_POST['action']) && $_POST['action'] == "view") {
             <td>' . $value['last_name'] . '</td>
             <td>' . $value['email'] . '</td>
             <td class="text-center">
+            <button class="btn btn-sm btn-success">details</button>
             <button class="btn btn-sm btn-info">edit</button>
             <button class="btn btn-sm btn-danger">delete</button>
         </td>
@@ -32,4 +33,12 @@ if (isset($_POST['action']) && $_POST['action'] == "view") {
     } else {
         echo '<h3 class="text-center mt-5 text-info">No records found</h3>';
     }
+}
+
+if (isset($_POST["action"]) && $_POST["action"] == "insert") {
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $email = $_POST["email"];
+
+    $user->insert($firstName, $lastName, $email);
 }
