@@ -22,9 +22,9 @@ if (isset($_POST['action']) && $_POST['action'] == "view") {
             <td>' . $value['last_name'] . '</td>
             <td>' . $value['email'] . '</td>
             <td class="text-center">
-            <button class="btn btn-sm btn-success">details</button>
-            <button class="btn btn-sm btn-info">edit</button>
-            <button class="btn btn-sm btn-danger">delete</button>
+            <a class="btn btn-sm btn-info infoBtn" href="#" id="' . $value['id'] . '" data-toggle="modal" data-target="#infoModal">details</a>
+            <a class="btn btn-sm btn-primary editBtn" href="#" id="' . $value['id'] . '" data-toggle="modal" data-target="#editModal">edit</a>
+            <a class="btn btn-sm btn-danger delBtn" href="#" id="' . $value['id'] . '">delete</a>
         </td>
             </tr>';
         }
@@ -41,4 +41,32 @@ if (isset($_POST["action"]) && $_POST["action"] == "insert") {
     $email = $_POST["email"];
 
     $user->insert($firstName, $lastName, $email);
+}
+
+if (isset($_POST["user_id"])) {
+    $user_id = $_POST["user_id"];
+
+    $userData = $user->getUserById($user_id);
+
+    echo json_encode($userData);
+}
+
+if (isset($_POST['action']) && $_POST['action'] == "edit") {
+    $id = $_POST["id"];
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $email = $_POST["email"];
+
+    $user->update($id, $firstName, $lastName, $email);
+}
+
+if (isset($_POST["delete_id"])) {
+    $id = $_POST["delete_id"];
+    $user->delete($id);
+}
+if (isset($_POST["info_id"])) {
+    $id = $_POST["info_id"];
+    $userInfo = $user->getUserById($id);
+
+    echo json_encode($userInfo);
 }
