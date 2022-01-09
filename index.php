@@ -1,9 +1,3 @@
-<?php
-require "User.php";
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 

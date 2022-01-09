@@ -1,7 +1,6 @@
 <?php
 require "User.php";
 $user = new User();
-$regex = "/^[a-zA-Z]+{3,}$/";
 
 if (isset($_POST['action']) && $_POST['action'] == "view") {
     $table = '';
