@@ -1,6 +1,7 @@
 <?php
 require "User.php";
 $user = new User();
+$regex = "/^[a-zA-Z]+{3,}$/";
 
 if (isset($_POST['action']) && $_POST['action'] == "view") {
     $table = '';
@@ -21,9 +22,9 @@ if (isset($_POST['action']) && $_POST['action'] == "view") {
             <td>' . $value['first_name'] . '</td>
             <td>' . $value['last_name'] . '</td>
             <td>' . $value['email'] . '</td>
-            <td class="text-center">
-            <a class="btn btn-sm btn-info infoBtn" href="#" id="' . $value['id'] . '" data-toggle="modal" data-target="#infoModal">details</a>
-            <a class="btn btn-sm btn-primary editBtn" href="#" id="' . $value['id'] . '" data-toggle="modal" data-target="#editModal">edit</a>
+            <td class="text-center d-flex justify-content-center">
+            <a class="btn btn-sm btn-info infoBtn mr-1" href="#" id="' . $value['id'] . '" data-toggle="modal" data-target="#infoModal">details</a>
+            <a class="btn btn-sm btn-primary editBtn mr-1" href="#" id="' . $value['id'] . '" data-toggle="modal" data-target="#editModal">edit</a>
             <a class="btn btn-sm btn-danger delBtn" href="#" id="' . $value['id'] . '">delete</a>
         </td>
             </tr>';
@@ -39,7 +40,6 @@ if (isset($_POST["action"]) && $_POST["action"] == "insert") {
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
     $email = $_POST["email"];
-
     $user->insert($firstName, $lastName, $email);
 }
 

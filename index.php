@@ -14,8 +14,20 @@ require "User.php";
     <link rel="stylesheet" href="./public/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css" />
 </head>
+<style>
+    .preloader {
+        background: #ffffff url(public/images/spinner.gif) no-repeat center;
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        z-index: 100;
+    }
+</style>
 
-<body id="body">
+<body>
+    <div class="preloader" id="preloader">
+
+    </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Manage users</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,11 +57,11 @@ require "User.php";
                     <form id="insert-form">
                         <label for="firstName">First Name</label>
                         <div class="form-group">
-                            <input type="text" name="firstName" id="firstName" class="form-control" required>
+                            <input type="text" name="firstName" id="firstName" class="form-control" pattern="^[a-zA-Z]{3,}$" title="first name should be one word" required>
                         </div>
                         <label for="lastName">Last Name</label>
                         <div class="form-group">
-                            <input type="text" name="lastName" id="lastName" class="form-control" required>
+                            <input type="text" name="lastName" id="lastName" class="form-control" pattern="^[a-zA-Z]{3,}$" title="last name should be one word" required>
                         </div>
                         <label for="email">Email</label>
                         <div class="form-group">
@@ -78,11 +90,11 @@ require "User.php";
                         <input type="hidden" name="id" id="id" value="">
                         <label for="firstName">First Name</label>
                         <div class="form-group">
-                            <input type="text" name="firstName" id="firstName" class="form-control" value="" required>
+                            <input type="text" name="firstName" id="firstName" class="form-control" pattern="^[a-zA-Z]{3,}$" title="first name should be one word" value="" required>
                         </div>
                         <label for="lastName">Last Name</label>
                         <div class="form-group">
-                            <input type="text" name="lastName" id="lastName" class="form-control" value="" required>
+                            <input type="text" name="lastName" id="lastName" class="form-control" pattern="^[a-zA-Z]{3,}$" title="last name should be one word" value="" required>
                         </div>
                         <label for="email">Email</label>
                         <div class="form-group">
@@ -116,9 +128,10 @@ require "User.php";
         </div>
     </div>
     <!-- end info modal -->
+
     <div class="container">
         <!-- insert toast -->
-        <div class="toast bg-success text-white insert-toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true" style="position: absolute;top:0;right:0;z-index:1;">
+        <div class="toast bg-success text-white insert-toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute;top:0;right:0;z-index:1;">
             <div class="toast-header">
 
 
@@ -135,7 +148,7 @@ require "User.php";
         <!-- end insert toast -->
 
         <!-- update toast -->
-        <div class="toast bg-success text-white update-toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true" style="position: absolute;top:0;right:0;z-index:1;">
+        <div class="toast bg-success text-white update-toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute;top:0;right:0;z-index:1;">
             <div class="toast-header">
 
 
@@ -153,10 +166,9 @@ require "User.php";
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">
             Add user
         </button>
-        <center>
 
-        </center>
         <div class=" my-4" id="displayUser">
+
 
         </div>
     </div>
@@ -171,7 +183,13 @@ require "User.php";
     <script src="./public/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
     <script>
+        var loader = document.getElementById("preloader");
+        window.addEventListener("load", function() {
+            loader.style.display = "none";
+        });
         $(document).ready(function() {
+
+
 
             displayUsers();
 
@@ -202,6 +220,9 @@ require "User.php";
                             $("#insert-form")[0].reset();
                             displayUsers();
 
+                            $(".insert-toast").toast({
+                                delay: 3000
+                            });
                             $(".insert-toast").toast('show');
 
 
@@ -240,7 +261,10 @@ require "User.php";
                             $("#editModal").modal("hide");
                             $("#edit-form")[0].reset();
                             displayUsers();
-                            $(".update-toast").toast('show');
+                            $(".update-toast").toast({
+                                delay: 3000
+                            });
+                            $('.update-toast').toast('show');
                         }
                     });
                 }
